@@ -1,0 +1,40 @@
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id              String      @id @default(uuid(7))
+  customerId      String
+  status          OrderStatus @default(PENDING)
+  totalAmount     Decimal     @db.Decimal(10,2)
+  paymentMethod   String?     @default("CASH ON DELIVERY")
+  shippingAddress String      @default("Bangladesh")
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  customer        User        @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  orderItems      OrderItem[]
+
+  @@index([customerId])
+  @@map("orders")
+}
+
+// order item
+model OrderItem {
+  id             String    @id @default(uuid(7))
+  orderId        String
+  productId      String
+  quantity       Int
+  priceAtPurchase Decimal  @db.Decimal(10,2)
+
+  order         Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Restrict)
+
+   @@index([orderId])
+  @@index([productId])
+  @@map("orderItems")
+}
