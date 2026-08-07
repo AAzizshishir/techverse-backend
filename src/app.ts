@@ -1,12 +1,13 @@
 import express, { Application } from "express";
+import { auth } from "../lib/auth";
+import { toNodeHandler } from "better-auth/node";
 
 const app: Application = express();
-const port = 5000;
 
 app.get("/", (req, res) => {
-  res.send("Welcome to TechVerse!");
+  res.json({ message: "TechVerse Server is running!" });
 });
 
-app.listen(port, () => {
-  console.log(`TechVerse app listening on port ${port}`);
-});
+app.all("/api/auth/{*any}", toNodeHandler(auth));
+
+export default app;
