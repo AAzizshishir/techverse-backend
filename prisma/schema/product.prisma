@@ -27,7 +27,7 @@ model Product {
 
 model category {
   id   String @id @default(uuid(7))
-  name String
+  name String @unique
 
   products  Product[]
 
