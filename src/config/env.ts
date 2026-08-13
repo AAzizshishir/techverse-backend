@@ -4,6 +4,7 @@ dotenv.config();
 
 interface envConfig {
   PORT: string;
+  BASE_URL: string;
   DATABASE_URL: string;
   APP_URL: string;
   BETTER_AUTH_SECRET: string;
@@ -11,11 +12,14 @@ interface envConfig {
   ADMIN_NAME: string;
   ADMIN_PASSWORD: string;
   ADMIN_EMAIL: string;
+  APP_USER: string;
+  APP_PASS: string;
 }
 
 const loadEnvVariables = (): envConfig => {
   const requiredEnvVars = [
     "PORT",
+    "BASE_URL",
     "DATABASE_URL",
     "APP_URL",
     "BETTER_AUTH_SECRET",
@@ -23,6 +27,8 @@ const loadEnvVariables = (): envConfig => {
     "ADMIN_NAME",
     "ADMIN_PASSWORD",
     "ADMIN_EMAIL",
+    "APP_USER",
+    "APP_PASS",
   ];
 
   requiredEnvVars.forEach((variable) => {
@@ -35,6 +41,7 @@ const loadEnvVariables = (): envConfig => {
 
   return {
     PORT: process.env.PORT as string,
+    BASE_URL: process.env.BASE_URL as string,
     DATABASE_URL: process.env.DATABASE_URL as string,
     BETTER_AUTH_SECRET: process.env.BETTER_AUTH_SECRET as string,
     APP_URL: process.env.APP_URL as string,
@@ -42,6 +49,8 @@ const loadEnvVariables = (): envConfig => {
     ADMIN_NAME: process.env.ADMIN_NAME as string,
     ADMIN_PASSWORD: process.env.ADMIN_PASSWORD as string,
     ADMIN_EMAIL: process.env.ADMIN_EMAIL as string,
+    APP_USER: process.env.APP_USER as string,
+    APP_PASS: process.env.APP_PASS as string,
   };
 };
 
