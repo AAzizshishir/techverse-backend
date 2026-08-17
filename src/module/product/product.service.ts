@@ -40,10 +40,15 @@ const createProduct = async (payload: CreateProductInput) => {
       images: payload.images ?? [],
     },
   });
-
   return product;
+};
+
+const getProducts = async () => {
+  const result = await prisma.product.findMany();
+  return result;
 };
 
 export const productService = {
   createProduct,
+  getProducts,
 };

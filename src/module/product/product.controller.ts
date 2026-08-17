@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { productService } from "./product.service";
+import { catchAsync } from "../../utils/catchAsync";
 
 const createProduct = async (req: Request, res: Response) => {
   try {
@@ -15,6 +16,16 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
+const getProducts = catchAsync(async (req: Request, res: Response) => {
+  const result = await productService.getProducts();
+  res.status(200).json({
+    success: true,
+    data: result,
+    message: "Products get successfully",
+  });
+});
+
 export const productController = {
   createProduct,
+  getProducts,
 };
